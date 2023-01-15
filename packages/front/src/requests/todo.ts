@@ -1,6 +1,7 @@
 import {
   TodoCreateRequest,
   TodoCreateResponse,
+  TodoDeleteResponse,
   TodoIndexResponse,
   TodoUpdateRequest,
   TodoUpdateResponse,
@@ -34,6 +35,13 @@ export const TodoRequest = {
       body: JSON.stringify(params),
     });
     const todo: TodoUpdateResponse = await res.json();
+    return todo;
+  },
+  delete: async (id: number) => {
+    const res = await fetch(API_URL + `/todo/${id}`, {
+      method: 'DELETE',
+    });
+    const todo: TodoDeleteResponse = await res.json();
     return todo;
   },
 };

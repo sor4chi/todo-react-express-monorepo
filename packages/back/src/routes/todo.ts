@@ -41,10 +41,12 @@ router.post('/', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   const id = Number(req.params.id);
   const { title, completed } = req.body;
+  if (VALIDATIONS.id(req.params.id)) {
+    res.status(404).send('NOT FOUND');
+  }
   if (
-    VALIDATIONS.id(req.params.id) ||
-    VALIDATIONS.title(title) ||
-    VALIDATIONS.completed(completed)
+    (title && VALIDATIONS.title(title)) ||
+    (completed && VALIDATIONS.completed(completed))
   ) {
     res.status(400).send('INVALID PARAMS');
     return;

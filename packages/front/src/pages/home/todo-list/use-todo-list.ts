@@ -22,7 +22,6 @@ export const useTodoList = () => {
   };
 
   const updateCompleted = async (id: number, completed: boolean) => {
-    setLoading(true);
     setError('');
     try {
       const newTodo = await TodoRequest.update(id, { completed });
@@ -37,8 +36,21 @@ export const useTodoList = () => {
       if (e instanceof Error) {
         setError('更新に失敗しました。時間をおいて再度お試しください。');
       }
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const deleteTodo = async (id: number) => {
+    setError('');
+    try {
+      await TodoRequest.delete(id);
+      setTodos((todos) => {
+        const newTodos = todos.filter((todo) => todo.id !== id);
+        return newTodos;
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        setError('削除に失敗しました。時間をおいて再度お試しください。');
+      }
     }
   };
 
@@ -46,5 +58,5 @@ export const useTodoList = () => {
     fetchTodos();
   }, []);
 
-  return { todos, setTodos, updateCompleted, loading, error };
+  return { todos, setTodos, deleteTodo, updateCompleted, loading, error };
 };

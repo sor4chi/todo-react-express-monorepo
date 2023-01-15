@@ -7,8 +7,10 @@ export const Home = () => {
     setTodos,
     loading,
     updateCompleted,
+    deleteTodo,
     error: todoListError,
   } = useTodoList();
+
   const {
     title,
     completed,
@@ -34,6 +36,7 @@ export const Home = () => {
         loading={loading}
         error={todoListError}
         updateCompleted={updateCompleted}
+        deleteTodo={deleteTodo}
       />
     </Container>
   );

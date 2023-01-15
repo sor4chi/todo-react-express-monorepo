@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MdCheck, MdClose } from 'react-icons/md';
 import { Todo } from '../types';
 
 const Container = styled.div`
@@ -43,9 +44,16 @@ interface TodoListProps {
   loading: boolean;
   error: string;
   updateCompleted: (id: number, completed: boolean) => void;
+  deleteTodo: (id: number) => void;
 }
 
-export const TodoList = ({ todos, loading, error }: TodoListProps) => {
+export const TodoList = ({
+  todos,
+  loading,
+  error,
+  updateCompleted,
+  deleteTodo,
+}: TodoListProps) => {
   if (loading) {
     return (
       <Container>
@@ -62,7 +70,12 @@ export const TodoList = ({ todos, loading, error }: TodoListProps) => {
     <Container>
       {todos.map((todo, i) => (
         <>
-          <TodoItem key={todo.id + 'item'} todo={todo} />
+          <TodoItem
+            key={todo.id + 'item'}
+            todo={todo}
+            toggleCompleted={() => updateCompleted(todo.id, !todo.completed)}
+            remove={() => deleteTodo(todo.id)}
+          />
           {i !== todos.length - 1 && <Line key={i + 'line'} />}
         </>
       ))}
@@ -70,14 +83,25 @@ export const TodoList = ({ todos, loading, error }: TodoListProps) => {
   );
 };
 
-const TodoItem = ({ todo }: { todo: Todo }) => {
-  return (
-    <TodoItemContainer>
-      <span>{todo.title}</span>
-      <p>{todo.completed ? '✅' : '❌'}</p>
-    </TodoItemContainer>
-  );
-};
+interface TodoItemProps {
+  todo: Todo;
+  toggleCompleted: () => void;
+  remove: () => void;
+}
+
+const TodoItem = ({ todo, toggleCompleted, remove }: TodoItemProps) => (
+  <TodoItemContainer>
+    <span>{todo.title}</span>
+    <ButtonsContainer>
+      <CompletedToggleButton onClick={() => toggleCompleted()}>
+        {todo.completed && <MdCheck size={24} />}
+      </CompletedToggleButton>
+      <DeleteButton onClick={() => remove()}>
+        <MdClose size={24} />
+      </DeleteButton>
+    </ButtonsContainer>
+  </TodoItemContainer>
+);
 
 const TodoItemContainer = styled.div`
   display: flex;
@@ -90,4 +114,55 @@ const Line = styled.div`
   width: 100%;
   height: 1px;
   background: #e6e6e6;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const FOCUS_COLOR = '#8cb6f5';
+
+const CompletedToggleButton = styled.button`
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 1px solid #e6e6e6;
+  color: #333333;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: 1px solid ${FOCUS_COLOR};
+  }
+
+  svg {
+    stroke: #333333;
+  }
+`;
+
+const DeleteButton = styled.button`
+  background-color: #333333;
+  border-radius: 50%;
+  color: #ffffff;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: none;
+  border: none;
+  cursor: pointer;
+
+  &:focus {
+    outline: 1px solid ${FOCUS_COLOR};
+  }
+
+  svg {
+    stroke: #ffffff;
+  }
 `;
