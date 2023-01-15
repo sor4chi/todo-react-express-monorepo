@@ -62,4 +62,4 @@ router.delete('/:id', async (req: Request, res: Response) => {
   res.json(data);
 });
 
-export { router as user };
+export { router as todo };

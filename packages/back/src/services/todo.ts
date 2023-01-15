@@ -47,6 +47,8 @@ export const todoCreate = async (
     id: todo.id,
     title: todo.title,
     completed: todo.completed,
+    createdAt: todo.createdAt.toISOString(),
+    updatedAt: todo.updatedAt.toISOString(),
   };
 };
 
