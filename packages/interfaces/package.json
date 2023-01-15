@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "private": true,
+  "name": "memo-interfaces",
+  "main": "index.ts"
+}
