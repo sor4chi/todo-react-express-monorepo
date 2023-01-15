@@ -2,7 +2,13 @@ import { PostForm } from './post-form/post-form';
 import { usePostForm } from './post-form/use-post-form';
 
 export const Home = () => {
-  const { todos, setTodos, loading, error: todoListError } = useTodoList();
+  const {
+    todos,
+    setTodos,
+    loading,
+    updateCompleted,
+    error: todoListError,
+  } = useTodoList();
   const {
     title,
     completed,
@@ -23,7 +29,12 @@ export const Home = () => {
         setCompleted={setCompleted}
         submit={submit}
       />
-      <TodoList todos={todos} loading={loading} error={todoListError} />
+      <TodoList
+        todos={todos}
+        loading={loading}
+        error={todoListError}
+        updateCompleted={updateCompleted}
+      />
     </Container>
   );
 };

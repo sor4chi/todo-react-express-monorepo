@@ -6,10 +6,6 @@ export type TodoIndexResponse = {
   updatedAt: string;
 }[];
 
-export interface TodoShowRequest {
-  id: number;
-}
-
 export type TodoShowResponse = {
   id: number;
   title: string;
@@ -31,11 +27,10 @@ export interface TodoCreateResponse {
   updatedAt: string;
 }
 
-export interface TodoUpdateRequest {
-  id: number;
+export type TodoUpdateRequest = Partial<{
   title: string;
   completed: boolean;
-}
+}>;
 
 export interface TodoUpdateResponse {
   id: number;
@@ -43,10 +38,6 @@ export interface TodoUpdateResponse {
   completed: boolean;
   createdAt: string;
   updatedAt: string;
-}
-
-export interface TodoDeleteRequest {
-  id: number;
 }
 
 export interface TodoDeleteResponse {

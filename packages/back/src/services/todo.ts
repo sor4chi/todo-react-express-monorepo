@@ -16,12 +16,10 @@ export const todoIndex = async (): Promise<Todo.TodoIndexResponse> => {
   });
 };
 
-export const todoShow = async (
-  params: Todo.TodoShowRequest
-): Promise<Todo.TodoShowResponse> => {
+export const todoShow = async (id: number): Promise<Todo.TodoShowResponse> => {
   const todo = await prisma.todo.findUnique({
     where: {
-      id: params.id,
+      id,
     },
   });
   if (!todo) return null;
@@ -53,11 +51,12 @@ export const todoCreate = async (
 };
 
 export const todoUpdate = async (
+  id: number,
   params: Todo.TodoUpdateRequest
 ): Promise<Todo.TodoUpdateResponse> => {
   const todo = await prisma.todo.update({
     where: {
-      id: params.id,
+      id,
     },
     data: {
       title: params.title,
@@ -74,11 +73,11 @@ export const todoUpdate = async (
 };
 
 export const todoDelete = async (
-  params: Todo.TodoDeleteRequest
+  id: number
 ): Promise<Todo.TodoDeleteResponse> => {
   const todo = await prisma.todo.delete({
     where: {
-      id: params.id,
+      id,
     },
   });
   return {

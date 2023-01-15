@@ -42,6 +42,7 @@ interface TodoListProps {
   todos: Todo[];
   loading: boolean;
   error: string;
+  updateCompleted: (id: number, completed: boolean) => void;
 }
 
 export const TodoList = ({ todos, loading, error }: TodoListProps) => {

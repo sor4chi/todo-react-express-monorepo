@@ -1,4 +1,4 @@
-import { getTodos } from './../../../requests/todo';
+import { TodoRequest } from './../../../requests/todo';
 import { useEffect, useState } from 'react';
 import { Todo } from '../types';
 
@@ -12,10 +12,31 @@ export const useTodoList = () => {
     setError('');
     await new Promise((resolve) => setTimeout(resolve, 3000)); // skeletonのために3秒待つ
     try {
-      const todos = await getTodos();
+      const todos = await TodoRequest.get();
       setTodos(todos);
     } catch (e) {
       if (e instanceof Error) setError(e.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateCompleted = async (id: number, completed: boolean) => {
+    setLoading(true);
+    setError('');
+    try {
+      const newTodo = await TodoRequest.update(id, { completed });
+      setTodos((todos) => {
+        const newTodos = todos.map((todo) => {
+          if (todo.id === newTodo.id) return newTodo;
+          return todo;
+        });
+        return newTodos;
+      });
+    } catch (e) {
+      if (e instanceof Error) {
+        setError('更新に失敗しました。時間をおいて再度お試しください。');
+      }
     } finally {
       setLoading(false);
     }
@@ -25,5 +46,5 @@ export const useTodoList = () => {
     fetchTodos();
   }, []);
 
-  return { todos, setTodos, loading, error };
+  return { todos, setTodos, updateCompleted, loading, error };
 };

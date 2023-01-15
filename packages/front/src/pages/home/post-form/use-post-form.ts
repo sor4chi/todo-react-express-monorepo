@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { TodoRequest } from '../../../requests/todo';
 import { Todo } from '../types';
-import { createTodo } from '../../../requests/todo';
 
 export const usePostForm = (
   todos: Todo[],
@@ -26,7 +26,7 @@ export const usePostForm = (
 
   const submit = async () => {
     if (!validate()) return;
-    const todo = await createTodo({ title, completed });
+    const todo = await TodoRequest.create({ title, completed });
     setTodos([...todos, todo]);
     reset();
   };

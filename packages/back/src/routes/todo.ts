@@ -20,7 +20,7 @@ router.get('/:id', async (req: Request, res: Response) => {
     res.status(400).send('INVALID PARAMS');
     return;
   }
-  const data = await TodoService.todoShow({ id: Number(req.params.id) });
+  const data = await TodoService.todoShow(Number(req.params.id));
   if (!data) {
     res.status(404).send('NOT FOUND');
     return;
@@ -49,7 +49,7 @@ router.put('/:id', async (req: Request, res: Response) => {
     res.status(400).send('INVALID PARAMS');
     return;
   }
-  const data = await TodoService.todoUpdate({ id, title, completed });
+  const data = await TodoService.todoUpdate(id, { title, completed });
   res.json(data);
 });
 
@@ -58,7 +58,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
     res.status(400).send('INVALID PARAMS');
     return;
   }
-  const data = await TodoService.todoDelete({ id: Number(req.params.id) });
+  const data = await TodoService.todoDelete(Number(req.params.id));
   res.json(data);
 });
 
