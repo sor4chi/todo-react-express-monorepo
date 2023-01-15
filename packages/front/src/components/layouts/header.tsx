@@ -1,11 +1,5 @@
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.header`
-  background-color: #000;
-  color: #fff;
-  padding: 1rem;
-`;
-
 export const Header = () => {
   return (
     <HeaderContainer>
@@ -13,3 +7,9 @@ export const Header = () => {
     </HeaderContainer>
   );
 };
+
+export const HeaderContainer = styled.header`
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+`;

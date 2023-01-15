@@ -1,3 +1,6 @@
+import styled from 'styled-components';
+import { useTodoList } from './todo-list/use-todo-list';
+import { TodoList } from './todo-list/todo-list';
 import { PostForm } from './post-form/post-form';
 import { usePostForm } from './post-form/use-post-form';
 
@@ -42,9 +45,6 @@ export const Home = () => {
   );
 };
 
-import styled from 'styled-components';
-import { useTodoList } from './todo-list/use-todo-list';
-import { TodoList } from './todo-list/todo-list';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
