@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MdCheck, MdClose } from 'react-icons/md';
-import { Todo } from '../types';
+import { Todo } from '../../../types/todo';
 
 const Container = styled.div`
   margin: 1rem 0;

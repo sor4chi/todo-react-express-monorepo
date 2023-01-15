@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TodoRequest } from '../../../requests/todo';
-import { Todo } from '../types';
+import { Todo } from '../../../types/todo';
 
 export const usePostForm = (
   todos: Todo[],

@@ -1,6 +1,6 @@
 import { TodoRequest } from './../../../requests/todo';
 import { useEffect, useState } from 'react';
-import { Todo } from '../types';
+import { Todo } from '../../../types/todo';
 
 export const useTodoList = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
