@@ -1,50 +1,89 @@
+import * as Todo from 'memo-interfaces/todo';
 import { PrismaClient } from '@prisma/client';
-import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
 
-export const todoIndex = async (req: Request, res: Response) => {
+export const todoIndex = async (): Promise<Todo.TodoIndexResponse> => {
   const todos = await prisma.todo.findMany();
-  res.json(todos);
+  return todos.map((todo) => {
+    return {
+      id: todo.id,
+      title: todo.title,
+      completed: todo.completed,
+      createdAt: todo.createdAt.toISOString(),
+      updatedAt: todo.updatedAt.toISOString(),
+    };
+  });
 };
 
-export const todoShow = async (req: Request, res: Response) => {
+export const todoShow = async (
+  params: Todo.TodoShowRequest
+): Promise<Todo.TodoShowResponse> => {
   const todo = await prisma.todo.findUnique({
     where: {
-      id: Number(req.params.id),
+      id: params.id,
     },
   });
-  res.json(todo);
+  if (!todo) return null;
+  return {
+    id: todo.id,
+    title: todo.title,
+    completed: todo.completed,
+    createdAt: todo.createdAt.toISOString(),
+    updatedAt: todo.updatedAt.toISOString(),
+  };
 };
 
-export const todoCreate = async (req: Request, res: Response) => {
+export const todoCreate = async (
+  params: Todo.TodoCreateRequest
+): Promise<Todo.TodoCreateResponse> => {
   const todo = await prisma.todo.create({
     data: {
-      title: req.body.title,
-      completed: req.body.completed,
+      title: params.title,
+      completed: params.completed,
     },
   });
-  res.json(todo);
+  return {
+    id: todo.id,
+    title: todo.title,
+    completed: todo.completed,
+  };
 };
 
-export const todoUpdate = async (req: Request, res: Response) => {
+export const todoUpdate = async (
+  params: Todo.TodoUpdateRequest
+): Promise<Todo.TodoUpdateResponse> => {
   const todo = await prisma.todo.update({
     where: {
-      id: Number(req.params.id),
+      id: params.id,
     },
     data: {
-      title: req.body.title,
-      completed: req.body.completed,
+      title: params.title,
+      completed: params.completed,
     },
   });
-  res.json(todo);
+  return {
+    id: todo.id,
+    title: todo.title,
+    completed: todo.completed,
+    createdAt: todo.createdAt.toISOString(),
+    updatedAt: todo.updatedAt.toISOString(),
+  };
 };
 
-export const todoDelete = async (req: Request, res: Response) => {
+export const todoDelete = async (
+  params: Todo.TodoDeleteRequest
+): Promise<Todo.TodoDeleteResponse> => {
   const todo = await prisma.todo.delete({
     where: {
-      id: Number(req.params.id),
+      id: params.id,
     },
   });
-  res.json(todo);
+  return {
+    id: todo.id,
+    title: todo.title,
+    completed: todo.completed,
+    createdAt: todo.createdAt.toISOString(),
+    updatedAt: todo.updatedAt.toISOString(),
+  };
 };
