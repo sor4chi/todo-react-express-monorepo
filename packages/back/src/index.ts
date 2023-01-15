@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '../../.env' });
+
 import * as express from 'express';
 import { json } from 'body-parser';
 
