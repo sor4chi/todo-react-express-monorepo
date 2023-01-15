@@ -2,5 +2,32 @@
   "private": true,
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-react": "^7.32.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.4"
+  },
+  "scripts": {
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:js": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore .",
+    "lint:prettier": "prettier --check .",
+    "format": "npm-run-all --parallel format:*",
+    "format:js": "eslint --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore --fix .",
+    "format:prettier": "prettier --write .",
+    "dev": "npm-run-all --parallel dev:*",
+    "dev:back": "cd packages/back && yarn dev",
+    "dev:front": "cd packages/front && yarn dev",
+    "build": "npm-run-all --parallel build:*",
+    "build:back": "cd packages/back && yarn build",
+    "build:front": "cd packages/front && yarn build",
+    "start": "npm-run-all --parallel start:*",
+    "start:back": "cd packages/back && yarn start",
+    "start:front": "cd packages/front && yarn start"
+  }
 }
