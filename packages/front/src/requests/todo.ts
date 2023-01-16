@@ -3,6 +3,7 @@ import {
   TodoCreateResponse,
   TodoDeleteResponse,
   TodoIndexResponse,
+  TodoShowResponse,
   TodoUpdateRequest,
   TodoUpdateResponse,
 } from 'memo-interfaces/todo';
@@ -14,6 +15,11 @@ export const TodoRequest = {
     const res = await fetch(API_URL + '/todo');
     const todos: TodoIndexResponse = await res.json();
     return todos;
+  },
+  show: async (id: number) => {
+    const res = await fetch(API_URL + `/todo/${id}`);
+    const todo: TodoShowResponse = await res.json();
+    return todo;
   },
   create: async (params: TodoCreateRequest) => {
     const res = await fetch(API_URL + '/todo', {

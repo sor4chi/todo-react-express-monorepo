@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { MdCheck, MdClose } from 'react-icons/md';
 import { Todo } from '../../../types/todo';
+import { Link } from 'react-router-dom';
+import { ACCENT_COLOR } from '../../../constants/styles';
 
 interface TodoItemProps {
   todo: Todo;
@@ -10,7 +12,9 @@ interface TodoItemProps {
 
 export const TodoItem = ({ todo, toggleCompleted, remove }: TodoItemProps) => (
   <TodoItemContainer>
-    <span>{todo.title}</span>
+    <Title>
+      <Link to={`/todo/${todo.id}`}>{todo.title}</Link>
+    </Title>
     <ButtonsContainer>
       <CompletedToggleButton onClick={() => toggleCompleted()}>
         {todo.completed && <MdCheck size={24} />}
@@ -29,12 +33,26 @@ const TodoItemContainer = styled.div`
   padding: 0 1rem;
 `;
 
+const Title = styled.span`
+  font-size: 1.5rem;
+  font-weight: 500;
+  flex: 1;
+
+  a {
+    color: #333333;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: ${ACCENT_COLOR};
+    }
+  }
+`;
+
 const ButtonsContainer = styled.div`
   display: flex;
   gap: 1rem;
 `;
-
-const FOCUS_COLOR = '#8cb6f5';
 
 const CompletedToggleButton = styled.button`
   background-color: #ffffff;
@@ -50,7 +68,7 @@ const CompletedToggleButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    outline: 1px solid ${FOCUS_COLOR};
+    outline: 1px solid ${ACCENT_COLOR};
   }
 
   svg {
@@ -72,7 +90,7 @@ const DeleteButton = styled.button`
   cursor: pointer;
 
   &:focus {
-    outline: 1px solid ${FOCUS_COLOR};
+    outline: 1px solid ${ACCENT_COLOR};
   }
 
   svg {
